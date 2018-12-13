@@ -72,6 +72,15 @@ plt.plot(max_features, test_scores)
 plt.show()
 '''
 
+# try the GBDT
+estimators = [400, 450, 500, 550, 600]  # 500 to 550 is a good choice
+test_scores = []
+for n_est in estimators:
+    clf = GradientBoostingRegressor(loss="ls", learning_rate=.1, n_estimators=n_est, max_depth=3)
+    test_score = np.sqrt(-cross_val_score(clf, train_dev_x, train_dev_y, cv=10, scoring="neg_mean_squared_error"))
+    test_scores.append(np.mean(test_score))
 
+plt.plot(estimators, test_scores)
+plt.show()
 
 
